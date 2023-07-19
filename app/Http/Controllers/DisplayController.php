@@ -40,7 +40,9 @@ class DisplayController extends Controller
         $product->discount = $request->input('discount');
         $product->save();
         $data['email'] = 'vandunayak4000@gmail.com';
-        dispatch(new SendEmailJob($data));
+        // dispatch(new SendEmailJob($data));
+
+        dispatch(new SendEmailJob($data))->delay(now()->addseconds(value:5)); //Bydefault 1 secound hoy 6e
         return back()->withSuccess('Product Created !!!!!');
     }
     //4 edit create 
