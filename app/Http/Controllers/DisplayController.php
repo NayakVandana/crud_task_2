@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Jobs\SendEmailJob;
 
 class DisplayController extends Controller
 {
@@ -38,7 +39,8 @@ class DisplayController extends Controller
         $product->price = $request->input('price');
         $product->discount = $request->input('discount');
         $product->save();
-
+        $data['email'] = 'vandunayak4000@gmail.com';
+        dispatch(new SendEmailJob($data));
         return back()->withSuccess('Product Created !!!!!');
     }
     //4 edit create 

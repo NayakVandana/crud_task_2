@@ -24,3 +24,8 @@ Route::get('products/{id}/edit', [DisplayController::class,'edit']);
 Route::put('products/{id}/update', [DisplayController::class,'update']);
 Route::delete('products/{id}/delete', [DisplayController::class,'destroy']);
 
+// Route::get('send-email',function(){
+//         $data['email'] = 'vandunayak4000@gmail.com';
+//          dispatch(new SendEmailJob($data));
+//          dd('Email Send Successfully');
+// });
