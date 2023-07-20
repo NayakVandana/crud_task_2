@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Jobs\SendEmailJob;
 
+use Event;
+use App\Events\SendMail;
+use App\Events\Product_Submit_Category;
 class DisplayController extends Controller
 {
 
@@ -38,7 +42,15 @@ class DisplayController extends Controller
         $product->price = $request->input('price');
         $product->discount = $request->input('discount');
         $product->save();
+        // $data['email'] = 'vandunayak4000@gmail.com';
+        // // dispatch(new SendEmailJob($data));
 
+        // dispatch(new SendEmailJob($data))->delay(now()->addseconds(value:5)); //Bydefault 1 secound hoy 6e
+       
+       
+        Event::dispatch(new Product_Submit_Category($product->category_id)); ///event call 1st method
+       // event(new Product_Submit_Category($product->category_id) ); ///event call method 2
+        // dd('Users subscribed',$product->category_id );
         return back()->withSuccess('Product Created !!!!!');
     }
     //4 edit create 
